@@ -1,0 +1,14 @@
+reset;
+
+param Nmax = 10;
+
+model nash.mod;
+data nash.dat;
+option solver cplex;
+
+solve;
+
+display {s in S: x[s] > 0}, total_time/Nmax, variance;
+
+for {s in S: x[s] > 0} {
+    display s, x[s]};
