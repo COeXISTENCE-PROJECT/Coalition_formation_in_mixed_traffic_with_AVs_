@@ -72,7 +72,7 @@
     "simulator_parameters":
     {
         "simulation_timesteps" : 40,
-        "seed" : "23423",
+        "seed" : 23423,
         "sumo_type" : "sumo",
         "number_of_paths" : "${path_generation_parameters.number_of_paths}",
         "env_var" : "SUMO_HOME",
@@ -125,7 +125,7 @@
 
     "agent_generation_parameters" :
     {
-        "num_agents" : 20,
+        "num_agents" : 23,
         "new_machines_after_mutation": 10,
         "ratio_mutating" : 0.5,
         "agent_attributes" : ["id", "origin", "destination", "start_time", "kind"],
