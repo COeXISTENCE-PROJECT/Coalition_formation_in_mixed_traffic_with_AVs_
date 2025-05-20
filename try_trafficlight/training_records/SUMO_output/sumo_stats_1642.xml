@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-05-16 12:34:09 by Eclipse SUMO sumo Version 1.22.0
+<!-- generated on 2025-05-19 16:36:19 by Eclipse SUMO sumo Version 1.22.0
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -29,13 +29,13 @@
 -->
 
 <statistics xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/statistic_file.xsd">
-    <performance clockBegin="1890041.33" clockEnd="1890041.52" clockDuration="0.19" traciDuration="0.17" realTimeFactor="1925.53" vehicleUpdatesPerSecond="5446.81" personUpdatesPerSecond="0.00" begin="0.00" end="362.00" duration="362.00"/>
+    <performance clockBegin="-2131127.11" clockEnd="-2131127.01" clockDuration="0.10" traciDuration="0.09" realTimeFactor="2039.22" vehicleUpdatesPerSecond="6843.14" personUpdatesPerSecond="0.00" begin="0.00" end="208.00" duration="208.00"/>
     <vehicles loaded="15" inserted="15" running="0" waiting="0"/>
     <teleports total="0" jam="0" yield="0" wrongLane="0"/>
     <safety collisions="0" emergencyStops="0" emergencyBraking="0"/>
     <persons loaded="0" running="0" jammed="0"/>
     <personTeleports total="0" abortWait="0" wrongDest="0"/>
-    <vehicleTripStatistics count="15" routeLength="359.71" speed="8.47" duration="68.27" waitingTime="29.60" timeLoss="41.30" departDelay="0.73" departDelayWaiting="-1.00" totalTravelTime="1024.00" totalDepartDelay="11.00"/>
+    <vehicleTripStatistics count="15" routeLength="359.71" speed="8.21" duration="46.53" waitingTime="7.80" timeLoss="19.27" departDelay="0.73" departDelayWaiting="-1.00" totalTravelTime="698.00" totalDepartDelay="11.00"/>
     <pedestrianStatistics number="0" routeLength="0.00" duration="0.00" timeLoss="0.00"/>
     <rideStatistics number="0"/>
     <transportStatistics number="0"/>
