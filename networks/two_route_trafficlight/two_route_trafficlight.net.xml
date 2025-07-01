@@ -74,8 +74,8 @@
         <lane id="E5_0" index="0" speed="13.89" length="92.80" shape="201.60,0.00 201.60,92.80"/>
     </edge>
 
-	<tlLogic id="J2" type="static" programID="0" offset="40.0">
-		<phase duration="30" state="Gr"/>
+	<tlLogic id="J2" type="static" programID="0" offset="0">
+		<phase duration="10" state="Gr"/>
 		<phase duration="5"  state="yr"/>
 		<phase duration="10" state="rG"/>
 		<phase duration="5"  state="ry"/>
