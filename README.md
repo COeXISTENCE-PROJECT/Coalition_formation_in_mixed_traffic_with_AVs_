@@ -36,7 +36,7 @@
 - **Prerequisite**: Make sure you have SUMO installed in your system. This procedure should be carried out separately, by following the instructions provided [here](https://sumo.dlr.de/docs/Installing/index.html).
 - **Option 1**: Install the latest stable version from [PyPI](https://pypi.org/project/routerl/):  
   ```
-    pip install routerl
+    pip3 install git+https://github.com/COeXISTENCE-PROJECT/RouteRL.git@urb  
   ```
 - **Option 2**: Clone this repository for latest version, and manually install its dependencies: 
   ```
