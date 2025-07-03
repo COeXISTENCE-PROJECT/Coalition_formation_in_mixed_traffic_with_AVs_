@@ -5,7 +5,13 @@
 
 ---
 
-# Installation
+## Contents
+* [Experiments](https://github.com/COeXISTENCE-PROJECT/Coalition_formation_in_mixed_traffic_with_AVs_/tree/main/experiments)
+* [Results](https://github.com/COeXISTENCE-PROJECT/Coalition_formation_in_mixed_traffic_with_AVs_/tree/main/results)
+
+---
+
+## Installation
 
 
 - **Prerequisite**: Make sure you have SUMO installed in your system. This procedure should be carried out separately, by following the instructions provided [here](https://sumo.dlr.de/docs/Installing/index.html).
