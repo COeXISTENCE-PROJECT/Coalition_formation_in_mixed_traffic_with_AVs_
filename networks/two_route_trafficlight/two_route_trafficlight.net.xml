@@ -75,9 +75,9 @@
     </edge>
 
 	<tlLogic id="J2" type="static" programID="0" offset="0">
-		<phase duration="17" state="Gr"/>
+		<phase duration="31" state="Gr"/>
 		<phase duration="5"  state="yr"/>
-		<phase duration="33" state="rG"/>
+		<phase duration="9" state="rG"/>
 		<phase duration="5"  state="ry"/>
 	</tlLogic>
 
