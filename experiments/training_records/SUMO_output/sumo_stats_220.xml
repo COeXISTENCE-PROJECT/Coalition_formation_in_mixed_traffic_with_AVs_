@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-07-09 16:46:34 by Eclipse SUMO sumo Version 1.22.0
+<!-- generated on 2025-07-10 10:39:33 by Eclipse SUMO sumo Version 1.22.0
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="C:\Users\Utilisateur\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\routerl\environment\../networks/two_route_trafficlight/two_route_trafficlight.net.xml"/>
+        <net-file value="../networks/two_route_trafficlight\two_route_trafficlight.net.xml"/>
         <additional-files value="training_records\det.add.xml,training_records\route.rou.xml"/>
     </input>
 
@@ -29,7 +29,7 @@
 -->
 
 <statistics xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/statistic_file.xsd">
-    <performance clockBegin="428579.33" clockEnd="428579.50" clockDuration="0.16" traciDuration="0.15" realTimeFactor="1536.59" vehicleUpdatesPerSecond="6042.68" personUpdatesPerSecond="0.00" begin="0.00" end="252.00" duration="252.00"/>
+    <performance clockBegin="493000.81" clockEnd="493000.94" clockDuration="0.13" traciDuration="0.12" realTimeFactor="1938.46" vehicleUpdatesPerSecond="7623.08" personUpdatesPerSecond="0.00" begin="0.00" end="252.00" duration="252.00"/>
     <vehicles loaded="23" inserted="23" running="0" waiting="0"/>
     <teleports total="0" jam="0" yield="0" wrongLane="0"/>
     <safety collisions="0" emergencyStops="0" emergencyBraking="0"/>
