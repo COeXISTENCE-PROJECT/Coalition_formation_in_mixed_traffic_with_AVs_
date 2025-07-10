@@ -15,7 +15,7 @@ In the **Results** folder you will find data from the Results section of the pap
 This "Wardrop equilibrium" translates in our model to a Nash equilibrium. Therefore, our objective is to find an instance of *Two-Route* where the situation with all AV agents on route 0 is a Nash equilibrium (verifying our Wardrop equilibrium assumption) but not a strong equilibrium (so a coalition can exist). Such instances are labeled by yellow dots in the following figure:
 
 <p align="center">
-  <img src="imgs/15 agents 50 seconds cycle.png" width="50%"/>
+  <img src="../imgs/15 agents 50 seconds cycle.png" width="50%"/>
 </p>
 
 ---
@@ -31,5 +31,5 @@ This "Wardrop equilibrium" translates in our model to a Nash equilibrium. Theref
 This work is part of [COeXISTENCE](https://www.rafalkucharskilab.pl/research/coexistence/) (ERC Starting Grant, grant agreement No 101075838) and is a team work at Jagiellonian University in Kraków, Poland by: [Natello Descormier](https://github.com/natdesc), [Anastasia Psarou](https://github.com/AnastasiaPsarou), [Grzegorz Jamróz](https://github.com/GrzegorzJamroz) and others, within the research group of [Rafał Kucharski](https://www.rafalkucharskilab.pl).
 
 <p align="center">
-  <img src="imgs/credits.png" width="50%"/>
+  <img src="../imgs/credits.png" width="50%"/>
 </p>
