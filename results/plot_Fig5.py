@@ -454,27 +454,31 @@ for n in range(nb_clubs_tested):
     fig.savefig('../imgs/deviations_%s.svg'%(club), bbox_inches=extent.expanded(1.37, 1.37),transparent=True)
     les_ax[-1].yaxis.set_visible(False)
 
+
+for ax in les_ax:
+    ax.tick_params(axis='both', labelsize=16)
+
 print(les_xy)
-con = ConnectionPatch(xyA=les_xy[0], xyB=les_xy[0], connectionstyle="arc3,rad=.1", coordsA="data", coordsB="data",axesA=les_ax[1], axesB=les_ax[4], color="b",arrowstyle="->")
+con = ConnectionPatch(xyA=les_xy[0], xyB=les_xy[0], connectionstyle="arc3,rad=.1", coordsA="data", coordsB="data",axesA=les_ax[1], axesB=les_ax[4], color="b",arrowstyle="->", linewidth=2.5)
 les_ax[4].add_artist(con)
-con = ConnectionPatch(xyA=les_xy[1], xyB=les_xy[1], connectionstyle="arc3,rad=-0.1", coordsA="data", coordsB="data",axesA=les_ax[1], axesB=les_ax[2], color="b",arrowstyle="->")
+con = ConnectionPatch(xyA=les_xy[1], xyB=les_xy[1], connectionstyle="arc3,rad=-0.1", coordsA="data", coordsB="data",axesA=les_ax[1], axesB=les_ax[2], color="b",arrowstyle="->", linewidth=2.5)
 les_ax[4].add_artist(con)
-con = ConnectionPatch(xyA=les_xy[2], xyB=les_xy[2], connectionstyle="arc3,rad=.1", coordsA="data", coordsB="data",axesA=les_ax[2], axesB=les_ax[3], color="b",arrowstyle="->")
+con = ConnectionPatch(xyA=les_xy[2], xyB=les_xy[2], connectionstyle="arc3,rad=.1", coordsA="data", coordsB="data",axesA=les_ax[2], axesB=les_ax[3], color="b",arrowstyle="->", linewidth=2.5)
 les_ax[4].add_artist(con)
-con = ConnectionPatch(xyA=les_xy[3], xyB=les_xy[3], connectionstyle="arc3,rad=.1", coordsA="data", coordsB="data",axesA=les_ax[3], axesB=les_ax[4], color="b",arrowstyle="->")
+con = ConnectionPatch(xyA=les_xy[3], xyB=les_xy[3], connectionstyle="arc3,rad=.1", coordsA="data", coordsB="data",axesA=les_ax[3], axesB=les_ax[4], color="b",arrowstyle="->", linewidth=2.5)
 les_ax[4].add_artist(con)
 
 #ax1.plot(x[i],y[i],'ro',markersize=10)
 les_ax[0].yaxis.set_visible(True)
-les_ax[0].set_ylabel("Normalized travel time",**tnrfont, size=20)
+les_ax[0].set_ylabel("Normalized travel time",**tnrfont, size=22)
 les_ax[0].set_facecolor('aliceblue')
 les_ax[4].set_facecolor('honeydew')
 
-les_ax[0].set_title("a) No club",**tnrfont,size=20)
-les_ax[1].set_title("b) Club is [1,5,6]",**tnrfont,size=20)
-les_ax[2].set_title("c) Club is [1,5,6,7]",**tnrfont,size=20)
-les_ax[3].set_title("d) Club is [0,1,5,6,7]",**tnrfont,size=20)
-les_ax[4].set_title("e) Club is [0,1,5,6]",**tnrfont,size=20)
+les_ax[0].set_title("a) No club",**tnrfont,size=22)
+les_ax[1].set_title("b) Club is [1,5,6]",**tnrfont,size=22)
+les_ax[2].set_title("c) Club is [1,5,6,7]",**tnrfont,size=22)
+les_ax[3].set_title("d) Club is [0,1,5,6,7]",**tnrfont,size=22)
+les_ax[4].set_title("e) Club is [0,1,5,6]",**tnrfont,size=22)
 
 
 for ax in les_ax:
@@ -484,21 +488,21 @@ for ax in les_ax:
 for ax in les_ax:
     for spine in ax.spines.values():
         spine.set_linewidth(1.5)
-        
+
 les_ax[5].set_title(
     "f) Club is [0,1,5,6]",
     **tnrfont,
-    size=20
+    size=22
 )
 les_ax[5].set_facecolor('mistyrose')
 
 
-les_ax[0].set_xlabel("Agent ID", **tnrfont, size=20)
-les_ax[1].set_xlabel("Agent ID", **tnrfont, size=20)
-les_ax[2].set_xlabel("Agent ID", **tnrfont, size=20)
-les_ax[3].set_xlabel("Agent ID", **tnrfont, size=20)
-les_ax[4].set_xlabel("Agent ID", **tnrfont, size=20)
-les_ax[5].set_xlabel("Agent ID", **tnrfont, size=20)
+les_ax[0].set_xlabel("Agent ID", **tnrfont, size=22)
+les_ax[1].set_xlabel("Agent ID", **tnrfont, size=22)
+les_ax[2].set_xlabel("Agent ID", **tnrfont, size=22)
+les_ax[3].set_xlabel("Agent ID", **tnrfont, size=22)
+les_ax[4].set_xlabel("Agent ID", **tnrfont, size=22)
+les_ax[5].set_xlabel("Agent ID", **tnrfont, size=22)
 
 black_dot = lines.Line2D([0], [0], color = "w", marker="o",markerfacecolor='0',markeredgecolor='0',markersize=14)
 white_dot = lines.Line2D([0], [0], color = "w", marker="o",markerfacecolor='1',markeredgecolor='0',markersize=14)
