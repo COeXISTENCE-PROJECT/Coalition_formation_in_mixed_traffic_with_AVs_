@@ -399,117 +399,173 @@ print("Nash equilbrium: %s, strong equilibrium: %s"%(nash_equilibrium(s_0),stron
 # Preparing the plot
 les_x = [i for i in range(10)]
 plt.style.use("default")
-tnrfont = {'fontname':'Times New Roman'}
-# plt.style.use('science')
+tnrfont = {'fontname': 'Times New Roman'}
+
 fig = plt.figure()
-fig.set_size_inches(20,4)
-list_clubs = [[],[1,5,6],[1,5,6,7],[0,1,5,6,7],[0,1,5,6],[0,1,5,6]]
+fig.set_size_inches(14, 4)
+
+list_clubs = [
+    [],              # a) No club, base data
+    [1, 5],          # b) Club [1,5], base data
+    [1, 5, 0, 4],    # c) Club [1,5,0,4], base data
+    [1, 5, 0, 4],    # d) Club [1,5,0,4], human 13 data
+]
+
+use_human13_data = [
+    False,
+    False,
+    False,
+    True,
+]
+
 nb_clubs_tested = len(list_clubs)
 les_ax = []
-
 les_xy = []
 
-def plot_clubs(club,shift):
-    '''
-    Computes payoffs and deviations from the joint action where `club` is on route 1 and everyone else on route 0. \\
-    Then, plots the results. Use `shift` to display several results side by side without overlapping.
-    '''
-    les_y,les_dev,s = plot_deviation(club,p_0)
+
+def plot_clubs(club, shift):
+    """
+    Computes payoffs and deviations from the joint action where `club`
+    is on route 1 and everyone else is on route 0.
+    """
+    les_y, les_dev, s = plot_deviation(club, p_0)
+
     for i in range(10):
         color = '0'
+
         if les_dev[i] < 0:
             color = 'r'
-            les_xy.append((les_x[i],les_y[i] + les_dev[i]))
-        les_ax[-1].arrow(i+shift,les_y[i],0,les_dev[i],width=0.15,head_width = 0.45, head_length = min(0.1,np.abs(les_dev[i])),length_includes_head = True,color=color,zorder=2,alpha = 0.8)
+            les_xy.append((les_x[i], les_y[i] + les_dev[i]))
+
+        les_ax[-1].arrow(
+            i + shift,
+            les_y[i],
+            0,
+            les_dev[i],
+            width=0.15,
+            head_width=0.45,
+            head_length=min(0.1, np.abs(les_dev[i])),
+            length_includes_head=True,
+            color=color,
+            zorder=2,
+            alpha=0.8
+        )
+
         if s[i] == 0:
-            les_ax[-1].plot(i+shift,les_y[i],"o",markerfacecolor='0',markeredgecolor='0',markersize=10,zorder=3)
+            les_ax[-1].plot(
+                i + shift,
+                les_y[i],
+                "o",
+                markerfacecolor='0',
+                markeredgecolor='0',
+                markersize=10,
+                zorder=3
+            )
         else:
-            les_ax[-1].plot(i+shift,les_y[i],"o",markerfacecolor='1',markeredgecolor='0',markersize=10,zorder=3)
+            les_ax[-1].plot(
+                i + shift,
+                les_y[i],
+                "o",
+                markerfacecolor='1',
+                markeredgecolor='0',
+                markersize=10,
+                zorder=3
+            )
+
         plt.draw()
-        # ax.plot([i + shift,i + shift],les_yplusdev[i],color=color,alpha=0.5)
+
 
 for n in range(nb_clubs_tested):
     club = list_clubs[n]
 
-    if n == 5:
+    # Only the last panel uses the human-13-deviates data
+    if use_human13_data[n]:
         tab_reward = tab_reward_h13
     else:
         tab_reward = tab_reward_base
 
-    les_ax.append(fig.add_subplot(1,nb_clubs_tested,n+1))
-    les_ax[-1].set_ylim(0.8,3)
-    les_ax[-1].set_xticks([i  for i in range(10)], minor=False)
-    les_ax[-1].set_yticks([0.8,1,1.5,2,2.5,3], minor = False)
-    les_ax[-1].set_xticklabels(les_ax[-1].get_xticks(), **tnrfont, size=16)
-    les_ax[-1].set_yticklabels(les_ax[-1].get_yticks(), **tnrfont, size=16)
-    les_ax[-1].grid(axis="x",which="major",zorder=0)
-    les_ax[-1].axhline(1, color='0', linewidth=1)
-    title = "Club is %s"%(club) if n > 0 else "No club"
-    les_ax[-1].set_title(title,**tnrfont)
-    les_ax[-1].set_box_aspect(1)
-    plot_clubs(club,0)
+    les_ax.append(fig.add_subplot(1, nb_clubs_tested, n + 1))
 
-    extent = les_ax[-1].get_window_extent().transformed(fig.dpi_scale_trans.inverted())
-    # fig.savefig('../imgs/deviations_%s.png'%(club), bbox_inches=extent.expanded(1.37, 1.37),transparent=True)
-    fig.savefig('../imgs/deviations_%s.svg'%(club), bbox_inches=extent.expanded(1.37, 1.37),transparent=True)
+    les_ax[-1].set_ylim(0.8, 3)
+    les_ax[-1].set_xticks([i for i in range(10)], minor=False)
+    les_ax[-1].set_yticks([0.8, 1, 1.5, 2, 2.5, 3], minor=False)
+
+    les_ax[-1].set_xticklabels(
+        les_ax[-1].get_xticks(),
+        **tnrfont,
+        size=16
+    )
+    les_ax[-1].set_yticklabels(
+        les_ax[-1].get_yticks(),
+        **tnrfont,
+        size=16
+    )
+
+    les_ax[-1].grid(axis="x", which="major", zorder=0)
+    les_ax[-1].axhline(1, color='0', linewidth=1)
+    les_ax[-1].set_box_aspect(1)
+
+    plot_clubs(club, 0)
+
     les_ax[-1].yaxis.set_visible(False)
 
 
-for ax in les_ax:
-    ax.tick_params(axis='both', labelsize=16)
-
-print(les_xy)
-con = ConnectionPatch(xyA=les_xy[0], xyB=les_xy[0], connectionstyle="arc3,rad=.1", coordsA="data", coordsB="data",axesA=les_ax[1], axesB=les_ax[4], color="b",arrowstyle="->", linewidth=2.5)
-les_ax[4].add_artist(con)
-con = ConnectionPatch(xyA=les_xy[1], xyB=les_xy[1], connectionstyle="arc3,rad=-0.1", coordsA="data", coordsB="data",axesA=les_ax[1], axesB=les_ax[2], color="b",arrowstyle="->", linewidth=2.5)
-les_ax[4].add_artist(con)
-con = ConnectionPatch(xyA=les_xy[2], xyB=les_xy[2], connectionstyle="arc3,rad=.1", coordsA="data", coordsB="data",axesA=les_ax[2], axesB=les_ax[3], color="b",arrowstyle="->", linewidth=2.5)
-les_ax[4].add_artist(con)
-con = ConnectionPatch(xyA=les_xy[3], xyB=les_xy[3], connectionstyle="arc3,rad=.1", coordsA="data", coordsB="data",axesA=les_ax[3], axesB=les_ax[4], color="b",arrowstyle="->", linewidth=2.5)
-les_ax[4].add_artist(con)
-
-#ax1.plot(x[i],y[i],'ro',markersize=10)
+# Make y-axis visible only for first panel
 les_ax[0].yaxis.set_visible(True)
-les_ax[0].set_ylabel("Normalized travel time",**tnrfont, size=22)
-les_ax[0].set_facecolor('aliceblue')
-les_ax[4].set_facecolor('honeydew')
+les_ax[0].set_ylabel("Normalized travel time", **tnrfont, size=22)
 
-les_ax[0].set_title("a) No club",**tnrfont,size=22)
-les_ax[1].set_title("b) Club is [1,5,6]",**tnrfont,size=22)
-les_ax[2].set_title("c) Club is [1,5,6,7]",**tnrfont,size=22)
-les_ax[3].set_title("d) Club is [0,1,5,6,7]",**tnrfont,size=22)
-les_ax[4].set_title("e) Club is [0,1,5,6]",**tnrfont,size=22)
+# Panel titles
+les_ax[0].set_title("a) No club", **tnrfont, size=19)
+les_ax[1].set_title("b) Club is [1,5]", **tnrfont, size=19)
+les_ax[2].set_title("c) Club is [1,5,0,4]", **tnrfont, size=19)
+les_ax[3].set_title("d) Club is [1,5,0,4], 13", **tnrfont, size=19)
 
+# Background colors
+# Background colors
+# Background colors
+les_ax[0].set_facecolor('aliceblue')    # No club
+les_ax[2].set_facecolor('honeydew')     # Club [1,5,0,4], base
+les_ax[3].set_facecolor('mistyrose')    # Club [1,5,0,4], 13
 
+# X labels
 for ax in les_ax:
-    ax.tick_params(width=1.5)
+    ax.set_xlabel("Agent ID", **tnrfont, size=22)
+    ax.tick_params(axis='both', labelsize=16, width=1.5)
 
-
-for ax in les_ax:
     for spine in ax.spines.values():
         spine.set_linewidth(1.5)
 
-les_ax[5].set_title(
-    "f) Club is [0,1,5,6]",
-    **tnrfont,
-    size=22
+
+black_dot = lines.Line2D(
+    [0],
+    [0],
+    color="w",
+    marker="o",
+    markerfacecolor='0',
+    markeredgecolor='0',
+    markersize=14
 )
-les_ax[5].set_facecolor('mistyrose')
 
+white_dot = lines.Line2D(
+    [0],
+    [0],
+    color="w",
+    marker="o",
+    markerfacecolor='1',
+    markeredgecolor='0',
+    markersize=14
+)
 
-les_ax[0].set_xlabel("Agent ID", **tnrfont, size=22)
-les_ax[1].set_xlabel("Agent ID", **tnrfont, size=22)
-les_ax[2].set_xlabel("Agent ID", **tnrfont, size=22)
-les_ax[3].set_xlabel("Agent ID", **tnrfont, size=22)
-les_ax[4].set_xlabel("Agent ID", **tnrfont, size=22)
-les_ax[5].set_xlabel("Agent ID", **tnrfont, size=22)
+fig.legend(
+    [black_dot, white_dot],
+    ["Agent on route 0", "Agent on route 1"],
+    loc="upper center",
+    bbox_to_anchor=(0.5, 1.08),
+    ncol=2,
+    frameon=False,
+    prop={"family": "Times New Roman", "size": 18}
+)
 
-black_dot = lines.Line2D([0], [0], color = "w", marker="o",markerfacecolor='0',markeredgecolor='0',markersize=14)
-white_dot = lines.Line2D([0], [0], color = "w", marker="o",markerfacecolor='1',markeredgecolor='0',markersize=14)
-
-# leg = plt.legend([black_dot, white_dot], ["Agent on route 0", "Agent on route 1"],loc = 'upper right')
-
-# plt.title("(%s,%s) below threshold, (%s,%s) above threshold, threshold =  %s"%(tl_0_below_threshold,tl_1_below_threshold,tl_0_above_threshold,tl_1_above_threshold,threshold))
-plt.savefig("..\imgs\deviations.png", dpi=300)
-plt.savefig("..\imgs\deviations.svg")
+plt.savefig("../imgs/deviations_four_panels.png", dpi=400, bbox_inches="tight")
+plt.savefig("../imgs/deviations_four_panels.svg", bbox_inches="tight")
 plt.show()
