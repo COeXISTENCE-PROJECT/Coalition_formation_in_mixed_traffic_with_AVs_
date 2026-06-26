@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-07-02 15:30:02 by Eclipse SUMO sumo Version 1.22.0
-<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<!-- generated on 2026-06-19 17:38:26 by Eclipse SUMO sumo Version 1.19.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="C:\Users\Utilisateur\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\routerl\environment\../networks/two_route_trafficlight/two_route_trafficlight.net.xml"/>
-        <additional-files value="training_records\det.add.xml,training_records\route.rou.xml"/>
+        <net-file value="../networks/two_route_trafficlight\two_route_trafficlight.net.xml"/>
+        <route-files value="../networks/two_route_trafficlight\route.rou.xml"/>
+        <additional-files value="../networks/two_route_trafficlight\det.add.xml"/>
     </input>
 
     <output>
+        <fcd-output value="../networks/two_route_trafficlight\fcd.xml"/>
+        <summary-output value="../networks/two_route_trafficlight\summary.xml"/>
         <tripinfo-output value="training_records\SUMO_output\detailed_sumo_stats_5.xml"/>
         <statistic-output value="training_records\SUMO_output\sumo_stats_5.xml"/>
     </output>
@@ -25,7 +28,7 @@
         <seed value="23423"/>
     </random_number>
 
-</sumoConfiguration>
+</configuration>
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">

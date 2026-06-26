@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-07-02 15:30:02 by Eclipse SUMO sumo Version 1.22.0
-<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<!-- generated on 2026-06-19 17:38:20 by Eclipse SUMO sumo Version 1.19.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="C:\Users\Utilisateur\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\routerl\environment\../networks/two_route_trafficlight/two_route_trafficlight.net.xml"/>
-        <additional-files value="training_records\det.add.xml,training_records\route.rou.xml"/>
+        <net-file value="../networks/two_route_trafficlight\two_route_trafficlight.net.xml"/>
+        <route-files value="../networks/two_route_trafficlight\route.rou.xml"/>
+        <additional-files value="../networks/two_route_trafficlight\det.add.xml"/>
     </input>
 
     <output>
+        <fcd-output value="../networks/two_route_trafficlight\fcd.xml"/>
+        <summary-output value="../networks/two_route_trafficlight\summary.xml"/>
         <tripinfo-output value="training_records\SUMO_output\detailed_sumo_stats_3.xml"/>
         <statistic-output value="training_records\SUMO_output\sumo_stats_3.xml"/>
     </output>
@@ -25,17 +28,17 @@
         <seed value="23423"/>
     </random_number>
 
-</sumoConfiguration>
+</configuration>
 -->
 
 <statistics xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/statistic_file.xsd">
-    <performance clockBegin="242901.10" clockEnd="242901.23" clockDuration="0.13" traciDuration="0.11" realTimeFactor="1619.40" vehicleUpdatesPerSecond="4805.97" personUpdatesPerSecond="0.00" begin="0.00" end="217.00" duration="217.00"/>
-    <vehicles loaded="15" inserted="15" running="0" waiting="0"/>
+    <performance clockBegin="196467.41" clockEnd="196467.42" clockDuration="0.01" traciDuration="0.00" realTimeFactor="0.00" vehicleUpdatesPerSecond="0.00" personUpdatesPerSecond="0.00" begin="0.00" end="0.00" duration="0.00"/>
+    <vehicles loaded="0" inserted="0" running="0" waiting="0"/>
     <teleports total="0" jam="0" yield="0" wrongLane="0"/>
     <safety collisions="0" emergencyStops="0" emergencyBraking="0"/>
     <persons loaded="0" running="0" jammed="0"/>
     <personTeleports total="0" abortWait="0" wrongDest="0"/>
-    <vehicleTripStatistics count="15" routeLength="359.71" speed="9.20" duration="42.93" waitingTime="6.33" timeLoss="16.05" departDelay="0.73" departDelayWaiting="-1.00" totalTravelTime="644.00" totalDepartDelay="11.00"/>
+    <vehicleTripStatistics count="0" routeLength="0.00" speed="0.00" duration="0.00" waitingTime="0.00" timeLoss="0.00" departDelay="0.00" departDelayWaiting="-1.00" totalTravelTime="0.00" totalDepartDelay="0.00"/>
     <pedestrianStatistics number="0" routeLength="0.00" duration="0.00" timeLoss="0.00"/>
     <rideStatistics number="0"/>
     <transportStatistics number="0"/>
