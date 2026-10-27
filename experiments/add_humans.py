@@ -208,7 +208,7 @@ def run_one_joint_action(s, num_times, offset=0):
     # then call:
     # return run_simulation(s)
 
-    return simulate(num_times, nb_agents=15, open_gui=True)
+    return simulate(num_times, nb_agents=15, open_gui=False)
 
 
 
@@ -225,41 +225,6 @@ def run_joint_action_ids(ids, offset=0):
 # Example: put here the joint-action ids that caused deviation
 # ============================================================
 
-"""joint_action_ids = [
-    792,
-    792,
-    792,
-    792,
-    792,
-    792,
-    792,
-    792,
-    792,
-    792,
-    792,
-    792,
-    792,
-    792,
-    792,
-    792,
-    792,
-    792,
-    792,
-    792,
-    792,
-    792,
-    792,
-    792,
-    792,
-    792,
-    792,
-    792,
-    792,
-    792,
-    792,
-    792,
-
-]"""
 joint_action_ids = [
     816,816,816,816,816,816,816,816,816,816,816,816,816,816,816,816,816,816,816,
     816,816,816,816,816,816,816,816,816,816,816,816, 816]

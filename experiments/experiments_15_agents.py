@@ -108,6 +108,12 @@ def create_environment(nb_agents=23,open_gui=False):
 def simulate(nb_agents=23,open_gui=False):
 
     env = create_environment(nb_agents,open_gui)
+
+    for human in env.human_agents:
+        human.default_action = 0
+    if human.id==13:
+        human.default_action=1
+
     env.start()
     env.mutation()
 
@@ -190,6 +196,7 @@ def run_exp(tl_0, tl_1, tl_y, nbagents,nbsamples=1,open_gui=False):
             tab_reward = pd.read_csv("reward_df_%s_%s_%s_%sagents.csv"%(tl_0,tl_1,tl_y,nbagents))
         for i in range(10):
             tab[i] += tab_reward[i]
+            #tab[i] += tab_reward[str(i)].values
     
     tab = tab/nbsamples
     filename = "reward_df_%s_%s_%s_%sagents_%ssamples.csv"%(tl_0,tl_1, tl_y, nbagents,nbsamples)
@@ -317,6 +324,7 @@ def build_rewardtable(file_name):
 
     !! Will crash if the file does not exist.
     '''
+
     df_reward = pd.read_csv(file_name)
     tab = np.zeros((10,1024))
     for i in range(10):
@@ -471,242 +479,60 @@ def coalition_deviations(s):
     return list_c
 
 
+### Dynamic traffic lights
 
-"""nb_agents = 15      # number of human + AV agents in the network
-threshold = 2       # number of AVs on route 1 beyond which the traffic lights adapt
-tl_y = 5            # length of each yellow light phase
-cycle_length = 50   # total length of the traffic light cycle
+# Checking under which parameters of a dynamic-traffic-light network, having all AVs on route 0 is a (strong) Nash equilibrium.
+# Said parameters are the traffic light durations with few AVs on route 1, and durations with more AVs on route 1.
+# 'threshold' is the number of AVs on route 1 necessary to switch between these two modes.
 
-list_t0s = [(20,10)]
-for tl_0_below_threshold,tl_0_above_threshold in list_t0s:
-    tl_1_below_threshold = cycle_length - 2*tl_y - tl_0_below_threshold
-    tl_1_above_threshold = cycle_length - 2*tl_y - tl_0_above_threshold
-    print("Green light durations on each route are (%s,%s) below threshold, (%s,%s) above threshold"%(tl_0_below_threshold,tl_1_below_threshold,tl_0_above_threshold,tl_1_above_threshold))
+snash_x, snash_y = [], []
+nash_x, nash_y = [], []
+notnash_x, notnash_y = [], []
 
-    tl_list = [(tl_0_below_threshold,tl_1_below_threshold,tl_y,nb_agents) if nb_1 < threshold else (tl_0_above_threshold,tl_1_above_threshold,tl_y,nb_agents) for nb_1 in range(11)]
-    custom_df(tl_list)
-    tab_reward = build_rewardtable("reward_df_custom.csv")
-
-    print("Deviations from x^0 = (0,0,...,0):", nash_deviation(id_to_strategy(0))) # prints the potential gains for each AV to be the first one to reroute from 0 to 1
-
-    # prints all the joint actions that are Nash equilibria
-    print("Printing joint actions that are Nash equilibria:")
-    for id in range(1024):
-        if nash_equilibrium(id_to_strategy(id)):
-            print(id_to_strategy(id))
-    print("Done")
-
-    print("Is x^0 = (0,0,...,0) a Nash equilibrium? :",nash_equilibrium(id_to_strategy(0)))
-    if nash_equilibrium(id_to_strategy(0)):
-        print("Is x^0 = (0,0,...,0) a strong equilibrium? :",strong_nash_equilibrium(id_to_strategy(0)))
-    print("")"""
-
-
-
-# set parameters
-"""nb_agents = 23      # number of human + AV agents in the network
-threshold = 2       # number of AVs on route 1 beyond which the traffic lights adapt
-tl_y = 5            # length of each yellow light phase
-cycle_length = 60   # total length of the traffic light cycle
-
-# define dynamic traffic light system
-tl_0_below_threshold = 30   # how long the green light lasts on route 0 before traffic lights adapt
-tl_0_above_threshold = 25   # how long the green light lasts on route 0 after traffic lights adapt
-tl_1_below_threshold = cycle_length - 2*tl_y  - tl_0_below_threshold
-tl_1_above_threshold = cycle_length - 2*tl_y  - tl_0_above_threshold"""
-
-
-# set parameters
 nb_agents = 15      # number of human + AV agents in the network
-threshold = 3       # number of AVs on route 1 beyond which the traffic lights adapt
+threshold = 2       # number of AVs on route 1 beyond which the traffic lights adapt
 tl_y = 5            # length of each yellow light phase
 cycle_length = 50   # total length of the traffic light cycle
 
+for tl_0_below_threshold in range(15,30):
+    for tl_0_above_threshold in range(1,tl_0_below_threshold):
 
-tl_0_below_threshold = 21   # how long the green light lasts on route 0 before traffic lights adapt
-tl_0_above_threshold = 9    # how long the green light lasts on route 0 after traffic lights adapt
-# and idem on route 1:
-tl_1_below_threshold = cycle_length - 2*tl_y  - tl_0_below_threshold
-tl_1_above_threshold = cycle_length - 2*tl_y  - tl_0_above_threshold
+        # build traffic light system and payoff matrix
+        tl_1_below_threshold = cycle_length - 2*tl_y - tl_0_below_threshold
+        tl_1_above_threshold = cycle_length - 2*tl_y - tl_0_above_threshold
+        print("Green light durations on each route are (%s,%s) below threshold, (%s,%s) above threshold"%(tl_0_below_threshold,tl_1_below_threshold,tl_0_above_threshold,tl_1_above_threshold))
+        tl_list = [(tl_0_below_threshold,tl_1_below_threshold,tl_y,nb_agents) if nb_1 < threshold else (tl_0_above_threshold,tl_1_above_threshold,tl_y,nb_agents) for nb_1 in range(11)]
+        custom_df(tl_list)
+        tab_reward = build_rewardtable("reward_df_custom.csv")
 
-# payoff matrix
-tl_list = [(tl_0_below_threshold,tl_1_below_threshold,tl_y,nb_agents) if nb_1 < threshold else (tl_0_above_threshold,tl_1_above_threshold,tl_y,nb_agents) for nb_1 in range(11)]
-custom_df(tl_list)
-tab_reward = build_rewardtable("reward_df_21_19_5_15agents.csv")
-
-# Calculating deviations from the initial situation
-s_0 = id_to_strategy(0)
-print("#######################\nInitial situation: everyone on route 0.")
-print("List of clubs that may form from x^0: \t",coalition_deviations(s_0))
-print("Nash equilibrium: %s, strong equilibrium: %s"%(nash_equilibrium(s_0),strong_nash_equilibrium(s_0,verbose=False)))
-p_0 = s_to_reward(s_0)
-nash_dev = nash_deviation(s_0)
-
-# Preparing the plot
-les_x = [i for i in range(10)]
-plt.style.use("default")
-tnrfont = {'fontname':'Times New Roman'}
-# plt.style.use('science')
-fig = plt.figure()
-fig.set_size_inches(12,3)
-list_clubs = [[],[1,5,6],[1,5,6,7],[0,1,5,6,7],[0,1,5,6]]
-nb_clubs_tested = len(list_clubs)
-les_ax = []
-
-les_xy = []
-
-
-def plot_deviation(club,p0):
-
-    '''
-    Input : `club` is a subset of the set of players.
-    Output : `y` is the reward of all players if the club goes to route 1 and all other players go to route 0. \\
-            `y_dev` is the reward of each player if they deviate alone from this situation.
-    '''
-
-    s = coalition_to_strategy(club)
-    print("#######################\nClub is %s.\tJoint action is %s"%(club,s))
-    print("List of agents that could deviate individually: \t",individual_deviations(s))
-    print("List of coalitions that could deviate simultaneously: \t",coalition_deviations(s))
-    print("Nash equilibrium: %s, strong equilibrium: %s"%(nash_equilibrium(s),strong_nash_equilibrium(s,verbose=False)))
-    p = s_to_reward(s)
-    nash_dev = nash_deviation(s)
-    y = [p[i]/p0[i] for i in range(len(p))]
-    dev = [nash_dev[i]/p0[i] for i in range(10)]
-    return y,dev,s
-
-
-def plot_clubs(club,shift):
-    '''
-    Computes payoffs and deviations from the joint action where `club` is on route 1 and everyone else on route 0. \\
-    Then, plots the results. Use `shift` to display several results side by side without overlapping.
-    '''
-    les_y,les_dev,s = plot_deviation(club,p_0)
-    for i in range(10):
-        color = '0'
-        if les_dev[i] < 0:
-            color = 'r'
-            les_xy.append((les_x[i],les_y[i] + les_dev[i]))
-        les_ax[-1].arrow(i+shift,les_y[i],0,les_dev[i],width=0.1,head_width = 0.35, head_length = min(0.1,np.abs(les_dev[i])),length_includes_head = True,color=color,zorder=2,alpha = 0.8)
-        if s[i] == 0:
-            les_ax[-1].plot(i+shift,les_y[i],"o",markerfacecolor='0',markeredgecolor='0',markersize=5,zorder=3)
+        # check equilibrium status
+        if nash_equilibrium(id_to_strategy(0)):
+            if strong_nash_equilibrium(id_to_strategy(0)):
+                snash_x.append(tl_0_below_threshold)
+                snash_y.append(tl_0_above_threshold)
+            else:
+                nash_x.append(tl_0_below_threshold)
+                nash_y.append(tl_0_above_threshold)
         else:
-            les_ax[-1].plot(i+shift,les_y[i],"o",markerfacecolor='1',markeredgecolor='0',markersize=5,zorder=3)
-        plt.draw()
-        # ax.plot([i + shift,i + shift],les_yplusdev[i],color=color,alpha=0.5)
+            notnash_x.append(tl_0_below_threshold)
+            notnash_y.append(tl_0_above_threshold)
 
-
-for n in range(nb_clubs_tested):
-    club = list_clubs[n]
-    les_ax.append(fig.add_subplot(1,nb_clubs_tested,n+1))
-    les_ax[-1].set_ylim(0.8,3)
-    les_ax[-1].set_xticks([i  for i in range(10)], minor=False, )
-    les_ax[-1].set_yticks([0.8,1,1.5,2,2.5,3], minor = False)
-    les_ax[-1].set_xticklabels(les_ax[-1].get_xticks(), **tnrfont)
-    les_ax[-1].set_yticklabels(les_ax[-1].get_yticks(), **tnrfont)
-    les_ax[-1].grid(axis="x",which="major",zorder=0)
-    les_ax[-1].axhline(1, color='0', linewidth=1)
-    title = "Club is %s"%(club) if n > 0 else "No club"
-    les_ax[-1].set_title(title,**tnrfont)
-    les_ax[-1].set_box_aspect(1)
-    plot_clubs(club,0)
-
-    extent = les_ax[-1].get_window_extent().transformed(fig.dpi_scale_trans.inverted())
-    # fig.savefig('../imgs/deviations_%s.png'%(club), bbox_inches=extent.expanded(1.37, 1.37),transparent=True)
-    fig.savefig('../imgs/deviations_%s.svg'%(club), bbox_inches=extent.expanded(1.37, 1.37),transparent=True)
-    les_ax[-1].yaxis.set_visible(False)
-
-print(les_xy)
-con = ConnectionPatch(xyA=les_xy[0], xyB=les_xy[0], connectionstyle="arc3,rad=.1", coordsA="data", coordsB="data",axesA=les_ax[1], axesB=les_ax[4], color="b",arrowstyle="->")
-les_ax[4].add_artist(con)
-con = ConnectionPatch(xyA=les_xy[1], xyB=les_xy[1], connectionstyle="arc3,rad=-0.1", coordsA="data", coordsB="data",axesA=les_ax[1], axesB=les_ax[2], color="b",arrowstyle="->")
-les_ax[4].add_artist(con)
-con = ConnectionPatch(xyA=les_xy[2], xyB=les_xy[2], connectionstyle="arc3,rad=.1", coordsA="data", coordsB="data",axesA=les_ax[2], axesB=les_ax[3], color="b",arrowstyle="->")
-les_ax[4].add_artist(con)
-con = ConnectionPatch(xyA=les_xy[3], xyB=les_xy[3], connectionstyle="arc3,rad=.1", coordsA="data", coordsB="data",axesA=les_ax[3], axesB=les_ax[4], color="b",arrowstyle="->")
-les_ax[4].add_artist(con)
-
-#ax1.plot(x[i],y[i],'ro',markersize=10)
-#ax2.plot(x[i],y[i],'ro',markersize=10)
-les_ax[0].yaxis.set_visible(True)
-les_ax[0].set_ylabel("Normalized travel time",**tnrfont)
-les_ax[0].set_facecolor('aliceblue')
-les_ax[4].set_facecolor('honeydew')
-
-les_ax[0].set_title("a) No club",**tnrfont,size=12)
-les_ax[1].set_title("b) Club is [1,5,6]",**tnrfont,size=12)
-les_ax[2].set_title("c) Club is [1,5,6,7]",**tnrfont,size=12)
-les_ax[3].set_title("d) Club is [0,1,5,6,7]",**tnrfont,size=12)
-les_ax[4].set_title("e) Club is [0,1,5,6]",**tnrfont,size=12)
-
-les_ax[2].set_xlabel("Agent ID",**tnrfont,size=12)
-
-black_dot = lines.Line2D([0], [0], color = "w", marker="o",markerfacecolor='0',markeredgecolor='0',markersize=8)
-white_dot = lines.Line2D([0], [0], color = "w", marker="o",markerfacecolor='1',markeredgecolor='0',markersize=8)
-
-# leg = plt.legend([black_dot, white_dot], ["Agent on route 0", "Agent on route 1"],loc = 'upper right')
-
-# plt.title("(%s,%s) below threshold, (%s,%s) above threshold, threshold =  %s"%(tl_0_below_threshold,tl_1_below_threshold,tl_0_above_threshold,tl_1_above_threshold,threshold))
-plt.savefig("..\imgs\deviations.png")
-plt.savefig("..\imgs\deviations.svg")
+plt.scatter(snash_x, snash_y, color="g", label="Nash and strong equilibria")
+plt.scatter(nash_x, nash_y, color="y", label="Nash but not strong equilibria")
+plt.scatter(notnash_x, notnash_y, color="r", label="not Nash equilibria")
+plt.xlabel("Green light duration on route 0, when n1 < %s"%(threshold))
+plt.ylabel("Green light duration on route 0, when n1 >= %s"%(threshold))
+plt.legend()
+plt.title("Is all-AVs-on-route-0 a (strong) Nash equilibrium, with dynamic traffic light times? Nbagents = %s, threshold = %s"%(nb_agents,threshold))
 plt.show()
 
-# define dynamic traffic light system
-"""tl_0_below_threshold = 21   # how long the green light lasts on route 0 before traffic lights adapt
-tl_0_above_threshold = 9    # how long the green light lasts on route 0 after traffic lights adapt
-tl_1_below_threshold = cycle_length - 2*tl_y  - tl_0_below_threshold
-tl_1_above_threshold = cycle_length - 2*tl_y  - tl_0_above_threshold
 
 
-# build payoff matrix
-tl_list = [(tl_0_below_threshold,tl_1_below_threshold,tl_y,nb_agents) if nb_1 < threshold else (tl_0_above_threshold,tl_1_above_threshold,tl_y,nb_agents) for nb_1 in range(11)]
-custom_df(tl_list)
-tab_reward = build_rewardtable("reward_df_21_19_5_15agents_0.0offset_1.csv")
+nb_agents = 15
+threshold = 2
+tl_y = 5
+cycle_length = 50
 
-# Calculating deviations from the initial situation
-s_0 = id_to_strategy(0)
-print("#######################\nInitial situation: everyone on route 0.")
-c_dev = coalition_deviations(s_0)
-print("List of clubs that may form from x^0:",c_dev)
-rew_0 = s_to_reward(s_0)
-print("Payoffs:",rew_0)
-print("Nash equilibrium: %s, strong equilibrium: %s"%(nash_equilibrium(s_0),strong_nash_equilibrium(s_0,verbose=False)))
+#run(21, 19, 5, 15)
 
-
-def explore_deviations(club,nb_tabs=1):
-    s = coalition_to_strategy(club)
-    print(nb_tabs*"\t"+"#######################\n"+nb_tabs*"\t"+"Club is %s. Joint action is %s"%(club,s))
-    ind_dev = individual_deviations(s)
-    print(nb_tabs*"\t"+"List of agents that could deviate individually: %s"%ind_dev)
-    new_c_dev = []
-    for new_c in coalition_deviations(s):
-        outofclub = True
-        for i in new_c:
-            if i in club:
-                outofclub = False
-        if outofclub:
-            new_c_dev.append(new_c)
-    print(nb_tabs*"\t"+"List of coalitions that could deviate simultaneously: %s"%new_c_dev)
-
-    rew = s_to_reward(s)
-    print(nb_tabs*"\t"+"Payoffs: %s"%rew)
-    print(nb_tabs*"\t"+"Nash equilibrium: %s, strong equilibrium: %s"%(nash_equilibrium(s),strong_nash_equilibrium(s,verbose=False)))
-    print("Is x^0 = (0,0,...,0) a Nash equilibrium? :",nash_equilibrium(id_to_strategy(0)))
-
-    # checking club internal stability (nobody wants to quit)
-    internal_stability = True
-    for i in club:
-        if i in ind_dev:
-            internal_stability = False
-    if not internal_stability:
-        print(nb_tabs*"\t"+"Club is not internally stable (at least one member of the club wants to deviate)")
-    
-    for i in club:
-        print(nb_tabs*"\t"+"%s gains %s from being in the club"%(i,rew[i] - rew_0[i]))
-    for new_c in new_c_dev:
-        explore_deviations(club + new_c,nb_tabs+1)
-    
-    return None
-
-for c in c_dev:
-    explore_deviations(c)"""
+list_t0s = [(21, 9)]
